@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", "Public Sans", sans-serif;
+  --font-sans: "Public Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --color-cobalt-50: #eff5fe;
+  --color-cobalt-100: #dce9fc;
+  --color-cobalt-200: #bcd4f9;
+  --color-cobalt-300: #8fb6f3;
+  --color-cobalt-400: #5b8fea;
+  --color-cobalt-500: #2e6be0;
+  --color-cobalt-600: #1a53d0;
+  --color-cobalt-700: #1646ae;
+  --color-cobalt-800: #143a8c;
+  --color-navy-800: #12315f;
+  --color-navy-900: #0a2148;
+  --color-navy-950: #061733;
+
+  --color-paper: #fcfdff;
+  --color-mist: #f1f6fc;
+  --color-line: #dae6f5;
+  --color-ink: #0b1e3e;
+  --color-mut: #5c7299;
+  --color-good: #0b9e63;
+  --color-warn: #d97706;
+  --color-danger: #d93636;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-mist text-ink font-sans antialiased;
+  }
+  ::selection {
+    background: #bcd4f9;
+    color: #061733;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-paper border border-line rounded-xl;
+    box-shadow:
+      0 1px 2px rgba(11, 30, 62, 0.05),
+      0 10px 28px -22px rgba(11, 30, 62, 0.35);
+  }
+  .label {
+    @apply block text-[10.5px] font-bold uppercase tracking-[0.09em] text-mut mb-1.5;
+  }
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink outline-none transition;
+  }
+  .input:focus {
+    border-color: #2e6be0;
+    box-shadow: 0 0 0 3px rgba(46, 107, 224, 0.16);
+  }
+  .input-err {
+    border-color: #d93636 !important;
+    box-shadow: 0 0 0 3px rgba(217, 54, 54, 0.12) !important;
+  }
+  .btn-p {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cobalt-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-cobalt-700 active:scale-[0.98] disabled:opacity-50;
+    box-shadow: 0 8px 18px -8px rgba(26, 83, 208, 0.65);
+  }
+  .btn-g {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 py-2.5 text-sm font-bold text-ink transition hover:border-cobalt-300 hover:text-cobalt-700 active:scale-[0.98];
+  }
+  .btn-d {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-danger px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#b82c2c] active:scale-[0.98];
+  }
+  .th {
+    @apply px-3 py-2.5 text-left text-[10.5px] font-bold uppercase tracking-[0.08em] text-mut whitespace-nowrap;
+  }
+  .td {
+    @apply px-3 py-2.5 text-sm whitespace-nowrap;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold;
+  }
+}
+
+/* ---------- motion ---------- */
+@keyframes tickerMove {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 0.7, 0.25, 1),
+    transform 0.65s cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+.ticker-track {
+  animation: tickerMove 32s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+.toast-in {
+  animation: toastIn 0.32s cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+.pulse-dot {
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+.float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+/* ---------- scrollbars & inputs ---------- */
+.scroll-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #bcd4f9;
+  border-radius: 8px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type="date"] {
+  color-scheme: light;
+}
